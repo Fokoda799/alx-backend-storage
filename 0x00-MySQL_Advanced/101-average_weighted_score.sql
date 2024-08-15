@@ -9,11 +9,11 @@ BEGIN
     DECLARE total_weighted_score FLOAT;
     DECLARE total_weight INT;
     DECLARE weighted_average FLOAT;
+    DECLARE user_id INT;
     
     -- Cursor to iterate over each user
     DECLARE user_cursor CURSOR FOR SELECT id FROM users;
     DECLARE done INT DEFAULT 0;
-    DECLARE user_id INT;
     
     -- Handler for end of cursor
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
@@ -56,3 +56,4 @@ BEGIN
 END$$
 
 DELIMITER ;
+
