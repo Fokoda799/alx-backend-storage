@@ -1,5 +1,3 @@
--- Create a --Drop a Procedure
--- Create a procedure that will return the total number of employees in the employees table.
 -- creates a stored procedure AddBonus that adds a new correction for a student.
 -- The procedure first checks if a project with the given `project_name`
 -- already exists in the projects table. If not, it creates a new project
@@ -13,43 +11,22 @@
 -- CALL AddBonus(user_id, project_name, score);
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS ADDBONUS;
+DROP PROCEDURE IF EXISTS AddBonus;
 
-CREATE PROCEDURE ADDBONUS(
-    IN USER_ID INT,
-    IN PROJECT_NAME VARCHAR(255),
-    IN SCORE INT
-)
+CREATE PROCEDURE AddBonus(IN user_id INT, IN project_name VARCHAR(255), IN score INT)
 BEGIN
-    DECLARE PROJECT_ID INT;
- 
+    DECLARE project_id INT;
+
     -- Check if project already exists?
-    SELECT
-        ID INTO PROJECT_ID
-    FROM
-        PROJECTS
-    WHERE
-        NAME = PROJECT_NAME;
- 
+    SELECT id INTO project_id FROM projects WHERE name = project_name;
     -- if it does not, insert new project
-    IF PROJECT_ID IS NULL THEN
-        INSERT INTO PROJECTS (
-            NAME
-        ) VALUES (
-            PROJECT_NAME
-        );
-        SET PROJECT_ID = LAST_INSERT_ID();
+    IF project_id IS NULL THEN
+	INSERT INTO projects (name) VALUES (project_name);
+	SET project_id = LAST_INSERT_ID();
     END IF;
- 
 
     -- Insert new correction
-    INSERT INTO CORRECTIONS (
-        USER_ID,
-        PROJECT_ID,
-        SCORE
-    ) VALUES (
-        USER_ID,
-        PROJECT_ID,
-        SCORE
-    );
-    END$$ DELIMITER;
+    INSERT INTO corrections (user_id, project_id, score)
+    VALUES (user_id, project_id, score);
+END$$
+DELIMITER ;
