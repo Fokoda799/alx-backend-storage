@@ -1,3 +1,5 @@
+-- Source:
+-- Create a stored procedure AddBonus that takes a user_id, a project_name and a score as arguments. The procedure should insert a new correction in the corrections table. If the project does not exist, it should be created. The project_id should be retrieved using the project_name. The procedure should return nothing.
 CREATE PROCEDURE AddBonus(IN user_id INT, IN project_name VARCHAR(255), IN score INT)
 BEGIN
     DECLARE project_id INT;
