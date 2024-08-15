@@ -8,7 +8,7 @@ CREATE FUNCTION SafeDiv(
     a INT,
     b INT
 )
-RETURNS INT
+RETURNS FLOAT
 BEGIN
     -- Check if the divisor is zero
     IF b = 0 THEN
