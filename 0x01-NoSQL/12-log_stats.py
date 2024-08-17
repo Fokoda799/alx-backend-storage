@@ -24,3 +24,7 @@ def main():
     # Get the number of documents with a path of /status
     num_docs = nginx.count_documents({'method': "GET", 'path': "/status"})
     print("{} status check".format(num_docs))
+
+
+if __name__ == "__main__":
+    main()
