@@ -1,37 +1,20 @@
 #!/usr/bin/env python3
-""" provides some stats about Nginx logs stored in MongoDB"""
+""" function that provides some stats about Nginx logs stored in MongoDB"""
 
-from pymongo import MongoClient, errors
-
-
-def main():
-    """ provides some stats about Nginx logs stored in MongoDB"""
-    try:
-        # Set up the connection to the MongoDB database
-        client = MongoClient('mongodb://127.0.0.1:27017')
-        nginx = client.logs.nginx
-
-        # Get the number of documents in the collection
-        num_docs = nginx.count_documents({})
-        print("{} logs".format(num_docs))
-
-        print("Methods:")
-
-        # Get the number of documents with each method
-        methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-        for method in methods:
-            num_methods = nginx.count_documents({'method': method})
-            print("\tmethod {}: {}".format(method, num_methods))
-
-        # Get the number of documents with a path of /status
-        num_docs = nginx.count_documents({'method': "GET", 'path': "/status"})
-        print("{} status check".format(num_docs))
-
-    except errors.ConnectionError as e:
-        print("Error connecting to MongoDB: {}".format(e))
-    except Exception as e:
-        print("An error occurred: {}".format(e))
+from pymongo import MongoClient
 
 
 if __name__ == "__main__":
-    main()
+    """ function that provides some stats about Nginx logs stored in MongoDB"""
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    logs_collection = client.logs.nginx
+    numOfdocs = logs_collection.count_documents({})
+    print("{} logs".format(numOfdocs))
+    print("Methods:")
+    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    for method in methods:
+        numOfmethods = logs_collection.count_documents({"method": method})
+        print("\tmethod {}: {}".format(method, numOfmethods))
+    filter_path = {"method": "GET", "path": "/status"}
+    num_path = logs_collection.count_documents(filter_path)
+    print("{} status check".format(num_path))
