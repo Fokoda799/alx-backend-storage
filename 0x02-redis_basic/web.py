@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+""" Main file """
 import redis
 import requests
 from functools import wraps
