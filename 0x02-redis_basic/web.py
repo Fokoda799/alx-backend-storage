@@ -59,15 +59,3 @@ def get_page(url: str) -> str:
 
 
 checker()
-
-if __name__ == "__main__":
-    import time as t
-    start = t.time()
-    print(get_page("https://google.com"))
-    print(t.time() - start)
-    print(get_page("https://google.com"))
-    print(t.time() - start)
-    print(get_page("https://google.com"))
-    print(t.time() - start)
-    print(get_page("https://google.com"))
-    print(t.time() - start)
